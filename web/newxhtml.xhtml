@@ -1,0 +1,203 @@
+<!--Nice — thanks for the full dump. I scanned everything. Here’s the **exact** set of fixes you need (no fluff), because multiple tiny issues were stacking up.
+
+---
+
+## The real blockers (ordered by importance)
+
+1. **unique_id overflow** — your generated 12-digit IDs (e.g. `917467019840`) are WAY bigger than MySQL `INT`. That will fail or break the insert.
+2. **disabled input `t1`** — `disabled` inputs are not sent in POST. So `d1` is `null`.
+3. **file input `t22`** — you have `<input type="file">` but **no `enctype="multipart/form-data"`** on the form and your servlet doesn't handle multipart — browser won’t send the file and `t22` will be null.
+4. **value attribute missing quotes** — `value=<%=unique12%>` should be `value="<%=unique12%>"` (minor but important).
+
+Fix those 4 and your insert will work.
+
+---
+
+## Exactly what to run / change (copy-paste)
+
+### 1) Make `unique_id` able to hold 12 digits — change to `BIGINT`
+
+Run this in MySQL:
+
+```sql
+ALTER TABLE patient_details
+MODIFY unique_id BIGINT NOT NULL PRIMARY KEY;
+```
+
+(If you want unsigned: `BIGINT UNSIGNED NOT NULL PRIMARY KEY`)
+
+This prevents overflow for 12-digit numbers.
+
+---
+
+### 2) Change the JSP input so the unique value is submitted
+
+Replace this line:
+
+```html
+<input id="id" class="input-text js-input" name="t1" value=<%=unique12%> type="text" disabled>
+```
+
+with either of these options (recommended: **readonly** so user can’t edit but value is submitted):
+
+```html
+ keep visible but read-only (will be submitted) 
+<input id="id" class="input-text js-input" name="t1" value="<%=unique12%>" type="text" readonly>
+
+ optional: you can also keep a hidden field (belt+braces) 
+<input type="hidden" name="t1" value="<%=unique12%>">
+```
+
+**Don’t use `disabled`** — that prevents the browser from sending `t1`.
+
+---
+
+### 3) Handle the file input (choose one)
+
+#### Option A — You only want to store the filename (easiest)
+
+Change the file input to a text field (user types filename or paste), OR extract filename client-side to hidden field. Easiest server-side path: change to text:
+
+```html
+<input id="photo" name="t22" class="input-text js-input" type="text" required>
+```
+
+This submits a plain string and matches `photo VARCHAR(255)`.
+
+#### Option B — You want real file upload (recommended if you're uploading photos)
+
+1. Update the `<form>` tag to include `enctype` and `method` (you already have method="post"):
+
+```html
+<form class="contact-form row" method="post" action="newentry" enctype="multipart/form-data">
+```
+
+2. Annotate the servlet with `@MultipartConfig` and read the uploaded file; store filename (or bytes). Minimal servlet changes below.
+
+---
+
+### 4) Minimal servlet changes for Option B (store uploaded filename into `photo`)
+
+Add imports at top:
+
+```java
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
+import java.nio.file.Paths;
+```
+
+Annotate servlet class:
+
+```java
+@MultipartConfig
+@WebServlet(urlPatterns = {"/newentry"})
+public class newentry extends HttpServlet {
+    // ...
+}
+```
+
+In `doPost`, replace `d22 = request.getParameter("t22");` with:
+
+```java
+Part photoPart = null;
+String photoFileName = "";
+try {
+    photoPart = request.getPart("t22");
+    if (photoPart != null && photoPart.getSize() > 0) {
+        photoFileName = Paths.get(photoPart.getSubmittedFileName()).getFileName().toString();
+        // Optionally save the file to disk:
+        // photoPart.write("/path/to/uploads/" + photoFileName);
+    }
+} catch (Exception ex) {
+    photoFileName = ""; // fallback
+}
+d22 = photoFileName;
+```
+
+This will store the uploaded file's filename into `d22`, which matches `photo VARCHAR(255)`.
+
+> If you prefer storing bytes into DB, you’ll need `PreparedStatement` + `setBinaryStream` (I can show that too).
+
+---
+
+### 5) Make sure date format is correct (if user-entered)
+
+Your DOB field `t10` must be `YYYY-MM-DD` before inserting. If the user types `2025-12-17` it's fine. If not, convert:
+
+```java
+// assume d9 holds DOB string in dd-MM-yyyy
+String dob = d9;
+try {
+    String[] p = d9.split("-");
+    if (p.length == 3 && p[0].length()==2) { // dd-mm-yyyy case
+        dob = p[2] + "-" + p[1] + "-" + p[0];
+    }
+} catch (Exception ex) { /* keep as-is */ }
+d9 = dob;
+```
+
+(Adjust variable index if your servlet uses different ordering — your current mapping is t10 → d10, but keep consistent.)
+
+---
+
+## Quick checklist (do these in order)
+
+1. Run `ALTER TABLE ... MODIFY unique_id BIGINT ...`
+2. Update JSP: `value="<%=unique12%>"` and replace `disabled` with `readonly` **or** add a hidden `t1`.
+3. Decide file behavior:
+
+   * If you want filename only: change `type="file"` → `type="text"`, or
+   * If you want upload: add `enctype="multipart/form-data"` to form and apply `@MultipartConfig` + `getPart(...)` code above.
+4. Ensure date is `YYYY-MM-DD`.
+5. Redeploy app and try submit. Check server logs for any stack trace if it fails.
+
+---
+
+## Example: smallest, fastest patch (gets you inserting right now)
+
+If you want the quickest working route (no file upload handling, minimal changes):
+
+1. Run SQL to change unique type to `BIGINT`.
+2. In JSP:
+
+   * change `disabled` → `readonly`
+   * change file input to text:
+
+     ```html
+     <input id="photo" name="t22" class="input-text js-input" type="text" required>
+     ```
+   * add quotes on value attribute: `value="<%=unique12%>"`
+3. No servlet change required (your current servlet reads `t22` as parameter).
+
+That will make your form submit all fields and insert fine.
+
+---
+
+Say which path you want:
+
+* **“Quick patch”** — I’ll give the exact tiny JSP diff for fastest test (no file upload).
+* **“Full upload”** — I’ll paste the full servlet code with `@MultipartConfig` and filename saving (or BLOB storing) — your call.
+
+Which one?-->
+
+<!--
+
+| Field Name                | Editable?    | Reason                 |
+| ------------------------- | ------------ | ---------------------- |
+| unique_id                 | ❌ No         | permanent ID           |
+| name                      | ❌/✔ Optional | depends on your policy |
+| father_or_husband_name    | 🔸 Maybe     | rarely changes         |
+| marital_status            | ✔ Yes        | changes                |
+| communication_address     | ✔ Yes        | changes                |
+| field_1, field_2, field_3 | ✔ Yes        | custom                 |
+| age                       | ✔ Yes        | if manually stored     |
+| date_of_birth             | ❌ No         | permanent              |
+| gender                    | ❌ No         | permanent (mostly)     |
+| mail_id                   | ✔ Yes        | changes often          |
+| state                     | ✔ Yes        | address change         |
+| nationality               | 🔸 Maybe     | rarely changes         |
+| contact_no                | ✔ Yes        | common update          |
+| alt_contact_no            | ✔ Yes        | common update          |
+| identification_marks      | 🔸 Maybe     | rarely changed         |
+| pincode                   | ✔ Yes        | address-based          |
+| photo                     | ✔ Yes        | allowed                |-->

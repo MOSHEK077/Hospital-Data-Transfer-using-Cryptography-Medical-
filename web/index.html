@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <style>
+    /* keep all original visual styling but make layout responsive */
+    body{
+      background-color: #3a89ffc9;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    /* Add fade in animation for page load */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    hr{
+      color:whitesmoke ;
+    }
+    .col{
+      border: 2px solid rgb(255, 255, 255);
+    }
+    .display-5{
+      background-color: rgba(241, 241, 241, 0.225);
+      font-weight: bold;
+      text-shadow: 5px 5px 5px rgba(97, 36, 36, 0.927);
+      /* responsive font-size */
+      font-size: clamp(1.25rem, 2.5vw + 0.5rem, 2.5rem);
+      animation: slideDown 0.6s ease-out;
+    }
+    
+    /* Add slide down animation for header */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    #col1{
+      background-color: transparent;
+      border: none;
+      height: 100%;
+      width: 100%;
+    }
+    img{
+      box-shadow: 2px 2px 20px rgb(96, 42, 42);
+      background-color: rgba(15, 25, 26, 0.125);
+      border-radius: 6px;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+    
+    /* Add fade in up animation for image */
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* hero image sizing — responsive but preserve look */
+    .hero-img{
+      display:block;
+      max-width:700px; /* original design */
+      width:100%;
+      height:auto;
+      max-height:400px; /* original design */
+      object-fit:cover;
+      margin-left:auto;
+      margin-right:auto;
+      transition: transform 0.3s ease;
+    }
+    
+    /* Add subtle hover effect to image */
+    .hero-img:hover {
+      transform: scale(1.01);
+    }
+    
+    #d1{
+      background-color: rgba(106, 103, 255, 0.133);
+      border: none;
+      border-radius: 20px;
+      color: rgb(9, 8, 9);
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+    
+    #p1{
+      font-weight: bold;
+      color: rgb(253, 252, 250);
+      text-align: center;
+      animation: fadeIn 0.8s ease-out 0.4s both;
+    }
+    
+    /* Add button animation */
+    .btn-main {
+      transition: all 0.3s ease;
+      animation: fadeIn 0.8s ease-out 0.5s both;
+    }
+    
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Add subtle animation for text content */
+    #d1 span, #d1 p {
+      opacity: 0;
+      animation: fadeInUpText 0.5s ease-out forwards;
+    }
+    
+    /* Stagger the text animations */
+    #d1 span { animation-delay: 0.7s; }
+    #d1 p:nth-of-type(1) { animation-delay: 0.8s; }
+    #d1 p:nth-of-type(2) { animation-delay: 0.9s; }
+    #d1 p:nth-of-type(3) { animation-delay: 1s; }
+    
+    @keyframes fadeInUpText {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* small-screen tweaks to keep the same design but make it usable */
+    @media (max-width: 991.98px){
+      .col{ /* remove heavy border on tiny screens if it overflows */
+        border-width: 1px;
+      }
+      .hero-img{
+        max-height:300px;
+      }
+      .display-5{ padding: 1rem; }
+    }
+
+    @media (max-width: 575.98px){
+      .display-5{ font-size: 1.1rem; }
+      .hero-img{ max-height:220px; }
+      #d1{ padding: 12px; border-radius:14px; }
+      .btn-main{ width: auto; padding-left:0.75rem; padding-right:0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <hr>
+  <div class="display-5 m-1 text-center p-3 text-white">MEDICALMANAGEMENT AND HEALTHCARE REPORT PROCESS SYSTEM</div>
+  <hr>
+
+  <div class="container text-center">
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8" id="col1">
+        <!-- responsive hero image (keeps original visual size on large screens) -->
+        <img src="homes.jpg" alt="Medical management" class="hero-img img-fluid" />
+      </div>
+    </div>
+
+    <div class="text-center mt-4 p-3">
+      <p id="p1">ELECTRONIC HEALTH RECORD  || ELECTRONIC MEDICAL RECORDS</p>
+      <a role="button" class="btn btn-success mt-3 btn-main" style="width: 120px;" href="dashboard.jsp">MAIN MENU</a>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-11 col-lg-10 m-2 p-3" style="text-align: justify; padding: 10px;" id="d1">
+
+        <span style="background-color: #ffffff10;">The Medical Management and Healthcare Report Processing System </span> is a digital platform built to streamline the way hospitals, clinics, and healthcare professionals handle patient information. Instead of relying on messy paper files, scattered reports, and outdated manual processes, this system brings everything under one clean, secure, and efficient interface.
+
+        <p style="margin-top:0.75rem;">At its core, the system helps doctors, nurses, lab technicians, and admins create, manage, store, and retrieve medical records without breaking a sweat. It automates the flow of information — from patient registration to diagnosis, lab results, treatment history, and discharge summaries — making the entire healthcare process faster, safer, and more reliable.</p>
+
+        <p>With real-time access to patient data, doctors can make quicker decisions, avoid errors, and improve the overall quality of care. <span style="background-color: #ffffff10;">The system also keeps things transparent by generating accurate digital reports like test results, prescriptions, medical histories, and billing summaries. Everything is encrypted, ensuring that sensitive health information stays protected.</span></p>
+
+        <p>In short, this project aims to modernize healthcare facilities with a smart, user-friendly solution that cuts down paperwork, boosts productivity, and delivers smoother patient care. It honors the old-school discipline of medical record-keeping while bringing in the power of today's technology to make healthcare truly efficient.</p>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

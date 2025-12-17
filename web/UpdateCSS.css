@@ -1,0 +1,273 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 Dec, 2025, 7:18:03 AM
+    Author     : jones
+*/
+*{
+    color: white;
+}
+ body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height: 100vh;
+      color: #ffffff;
+      background-color: #051428;
+      opacity: 0;
+      animation: pageFadeIn 0.8s ease-out forwards;
+    }
+    
+    /* Page fade in animation */
+    @keyframes pageFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+      .bg-img {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: -2;
+      pointer-events: none;
+      filter: brightness(.5) contrast(.95);
+      animation: bgZoom 25s ease-in-out infinite alternate;
+    }
+    
+    /* Background zoom animation */
+    @keyframes bgZoom {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.02); }
+    }
+
+.get-in-touch {
+  max-width: 800px;
+  margin: 50px auto;
+  position: relative;
+  animation: formSlideUp 0.7s ease-out 0.3s both;
+}
+    
+/* Form slide up animation */
+@keyframes formSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.get-in-touch .title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 2.1em;
+  line-height: 48px;
+  padding-bottom: 48px;
+    color: #ffffff;
+    background: #ffffff7d;
+  background-color: rgb(255, 255, 255);
+    -webkit-background-clip: text ;
+    -webkit-text-fill-color: transparent ;
+    animation: titleSlideDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s both;
+}
+    
+/* Title slide down animation */
+@keyframes titleSlideDown {
+    from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.contact-form .form-field {
+  position: relative;
+  margin: 32px 0;
+  animation: fieldFadeIn 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+    
+/* Staggered form field animations */
+.contact-form .form-field:nth-child(1) { animation-delay: 0.6s; }
+.contact-form .form-field:nth-child(2) { animation-delay: 0.65s; }
+.contact-form .form-field:nth-child(3) { animation-delay: 0.7s; }
+.contact-form .form-field:nth-child(4) { animation-delay: 0.75s; }
+.contact-form .form-field:nth-child(5) { animation-delay: 0.8s; }
+.contact-form .form-field:nth-child(6) { animation-delay: 0.85s; }
+.contact-form .form-field:nth-child(7) { animation-delay: 0.9s; }
+.contact-form .form-field:nth-child(8) { animation-delay: 0.95s; }
+.contact-form .form-field:nth-child(9) { animation-delay: 1.0s; }
+
+@keyframes fieldFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-form .input-text {
+  display: block;
+  width: 100%;
+  height: 36px;
+  border-width: 0 0 2px 0;
+  border-color: #ffffff;
+  font-size:18px;
+  line-height: 26px;
+  color: white;
+  font-weight: 400;
+    background-color: #10325f53;
+    border-right: 4px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+.contact-form .input-text:focus {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+.contact-form .input-text:focus + .label,
+.contact-form .input-text.not-empty + .label {
+  -webkit-transform: translateY(-24px);
+          transform: translateY(-24px);
+}
+.contact-form .label {
+  position: absolute;
+  left: 20px;
+  bottom: 11px;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: text;
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out;
+  transition: transform .2s ease-in-out, 
+  -webkit-transform .2s ease-in-out;
+}
+.contact-form .submit-btn {
+  display: inline-block;
+  background-color: #0035c6eb;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  width:200px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: buttonSlideIn 0.6s ease-out 1.2s both;
+}
+    
+/* Button slide in animation */
+@keyframes buttonSlideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.button-group {
+    gap: 15px; /* space between buttons */
+}
+
+.btn-clear {
+    background-color: #a85e0f;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: buttonSlideIn 0.6s ease-out 1.2s both;
+}
+
+.btn-clear:hover {
+    background-color: hsl(0, 21%, 68%);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(168, 94, 15, 0.2);
+}
+
+.l2{
+   
+   margin-left: -20px;
+   margin-bottom: 30px;
+}
+.btn:hover{
+   background-color: rgba(84, 114, 189, 0.559);
+}
+.submit-btn:hover{
+   background-color: rgba(84, 114, 189, 0.559);
+   transform: translateY(-2px) scale(1.05);
+   box-shadow: 0 8px 20px rgba(0, 53, 198, 0.2);
+}
+
+.table-responsive{
+    padding: 10px;
+    width: 400px;     
+    animation: tableFadeIn 0.8s ease-out 0.6s both;
+}
+    
+/* Table fade in animation */
+@keyframes tableFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+table,tr{
+   background-color: rgba(125, 121, 121, 0.048);
+   border: 2px solid rgba(255, 255, 255, 0.326);
+   animation: rowFadeIn 0.5s ease-out forwards;
+   opacity: 0;
+   transform: translateX(-10px);
+}
+    
+/* Staggered table row animations */
+tr:nth-child(1) { animation-delay: 0.7s; }
+tr:nth-child(2) { animation-delay: 0.75s; }
+tr:nth-child(3) { animation-delay: 0.8s; }
+tr:nth-child(4) { animation-delay: 0.85s; }
+
+@keyframes rowFadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+ th{
+        text-transform: uppercase;
+        width: 10px;
+        text-justify: center;
+
+    }
+
+     td{
+        text-transform: uppercase;
+        font-size: 10px;
+        width: 50%;
+        text-justify: center;
+
+    }
+    
+    .btn{
+        background: yellowgreen;
+        height: 40px;
+        margin-top: 30px;
+        width: 130px;
+        
+    }
+    .btn-clear{}
+    
+/*    .submit-btn{
+       margin-top: 30px;
+       height: 40px;
+        width: 130px;
+        margin-left: 140px;
+    }*/
+
+.submit-btn{
+    margin-left: 40px;
+}
+
+#mailid{
+    text-transform: lowercase;
+}
