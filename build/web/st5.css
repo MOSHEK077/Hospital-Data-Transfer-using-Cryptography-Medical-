@@ -1,0 +1,215 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 Dec, 2025, 8:55:50 PM
+    Author     : jones
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 Dec, 2025, 8:07:36 PM
+    Author     : jones
+*/
+
+
+ body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height: 100vh;
+      color: #ffffff;
+      background-color: #051428;
+    }
+
+      .bg-img {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: -2;
+      pointer-events: none;
+      filter: brightness(.5) contrast(.95);
+    }
+
+.get-in-touch {
+  max-width: 800px;
+  margin: 50px auto;
+  position: relative;
+
+}
+.get-in-touch .title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 3.2em;
+  line-height: 48px;
+  padding-bottom: 48px;
+    color: #ffffff;
+    background: #ffffff7d;
+  background-color: rgb(255, 255, 255);
+    -webkit-background-clip: text ;
+    -webkit-text-fill-color: transparent ;
+}
+
+.contact-form .form-field {
+  position: relative;
+  margin: 32px 0;
+}
+.contact-form .input-text {
+  display: block;
+  width: 100%;
+  height: 36px;
+  border-width: 0 0 2px 0;
+  border-color: #ffffff;
+  font-size:18px;
+  line-height: 26px;
+  color: white;
+  font-weight: 400;
+    background-color: #10325f53;
+    border-right: 4px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.contact-form .input-text:focus {
+  outline: none;
+}
+.contact-form .input-text:focus + .label,
+.contact-form .input-text.not-empty + .label {
+  -webkit-transform: translateY(-24px);
+          transform: translateY(-24px);
+}
+.contact-form .label {
+  position: absolute;
+  left: 20px;
+  bottom: 11px;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: text;
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out;
+  transition: transform .2s ease-in-out, 
+  -webkit-transform .2s ease-in-out;
+}
+.contact-form .submit-btn {
+  display: inline-block;
+  background-color: #94e10fe9;
+  
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  width:200px;
+  cursor: pointer;
+}
+
+.button-group {
+    gap: 15px; /* space between buttons */
+}
+
+.btn-clear {
+    background-color: #a85e0f;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-clear:hover {
+    background-color: hsl(0, 21%, 68%);
+}
+
+.l2{
+   
+   margin-left: -20px;
+   margin-bottom: 30px;
+}
+#id{
+      
+      margin-bottom: -40px;
+}
+.btn:hover{
+   background-color: rgba(84, 114, 189, 0.559);
+}
+.submit-btn:hover{
+   background-color: rgba(84, 114, 189, 0.559);
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+table {
+  width: 800px;
+  margin: 50px auto;
+  font-family: Arial,sans-serif;
+  font-size: 14px;
+  border-collapse: separate;
+  border-spacing: 0 7px;
+  
+  thead {
+    background-color: rgb(0, 128, 77);
+    color: #fff;
+    td {
+      &:first-child {
+        border-left: 1px solid green;
+      }
+      &:last-child {
+        border-right: 1px solid green;
+      }
+    }
+  }
+  
+  td {
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    &:after {
+      content: '';
+      width: 1px;
+      position: absolute;
+      right: 0;
+      top: 8px;
+      bottom: 8px;
+      background-color: #eee;
+    }
+    &:last-child {
+      &:after {
+        content: none;
+      }
+    }
+  }
+  
+  tbody {
+    td {
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      &:first-child {
+        border-left: 1px solid #eee;
+      }
+      &:last-child {
+        border-right: 1px solid #eee;
+      }
+    }
+    tr:hover {
+      background-color:#00ced96d;
+    }
+  }
+  
+}
+
